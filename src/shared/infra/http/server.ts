@@ -5,9 +5,11 @@ import 'express-async-errors';
 import { NextFunction } from 'connect';
 import { AppError } from '../../errors/AppError';
 import { routes } from './routes';
-import '@shared/infra/typeorm';
+import createConnection from '@shared/infra/typeorm';
 import '@shared/container';
 import { errors } from 'celebrate';
+
+createConnection();
 
 const app = express();
 
