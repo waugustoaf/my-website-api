@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { CreateTechnologyController } from '@modules/technologies/useCases/createTechnology/CreateTechnologyController';
 import { ListTechnologiesController } from '@modules/technologies/useCases/listTechnologies/ListTechnologiesController';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+import { ensureAdministrator } from '../middlewares/ensureAdministrator';
 
 export const technologyRoutes = Router();
 
@@ -10,6 +12,8 @@ const listTechnologies = new ListTechnologiesController();
 
 technologyRoutes.post(
   '/',
+  ensureAuthenticated,
+  ensureAdministrator,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),

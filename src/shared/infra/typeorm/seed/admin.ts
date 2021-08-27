@@ -11,7 +11,7 @@ const create = async () => {
 
   await connection.query(
     `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at) 
-      VALUES('${id}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()') `,
+      VALUES('${id}', 'admin', 'admin@waugustoaf.com.br', '${password}', true, 'now()') `,
   );
 };
 
