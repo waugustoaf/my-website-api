@@ -1,13 +1,14 @@
-import express, { Request, Response } from 'express';
-import cors from 'cors';
-import 'reflect-metadata';
-import 'express-async-errors';
+import '@shared/container';
+import createConnection from '@shared/infra/typeorm';
+import { errors } from 'celebrate';
 import { NextFunction } from 'connect';
+import cors from 'cors';
+import 'dotenv/config';
+import express, { Request, Response } from 'express';
+import 'express-async-errors';
+import 'reflect-metadata';
 import { AppError } from '../../errors/AppError';
 import { routes } from './routes';
-import createConnection from '@shared/infra/typeorm';
-import '@shared/container';
-import { errors } from 'celebrate';
 
 createConnection();
 

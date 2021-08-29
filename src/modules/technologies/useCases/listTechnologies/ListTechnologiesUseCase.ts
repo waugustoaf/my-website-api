@@ -49,20 +49,32 @@ export class ListTechnologiesUseCase {
       return `${formattedYears} e ${formattedMonths}`;
     } else {
       if (formattedYears) {
-        return `${formattedYears} anos`;
+        return `${formattedYears}`;
       } else {
-        return `${formattedMonths} meses`;
+        return `${formattedMonths}`;
       }
     }
+  }
+
+  private compare(a: Technology, b: Technology) {
+    if (a.start_date < b.start_date) {
+      return -1;
+    }
+    if (a.start_date > b.start_date) {
+      return 1;
+    }
+    return 0;
   }
 
   async execute(): Promise<IResponse> {
     const response = await this.technologiesRepository.list();
 
-    const technologies = response.map(technology => ({
-      ...technology,
-      formatted_start_date: this.formatDate(technology.start_date),
-    }));
+    const technologies = response
+      .map(technology => ({
+        ...technology,
+        formatted_start_date: this.formatDate(technology.start_date),
+      }))
+      .sort(this.compare);
 
     return technologies;
   }
