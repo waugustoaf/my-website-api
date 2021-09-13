@@ -17,6 +17,7 @@ projectRoutes.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      description: Joi.string().min(15).required(),
       external_link: Joi.string().uri().required(),
       github_link: Joi.string().uri().required(),
       image_link: Joi.string().uri().required(),

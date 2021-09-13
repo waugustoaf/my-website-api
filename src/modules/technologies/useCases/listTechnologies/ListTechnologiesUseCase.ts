@@ -42,7 +42,7 @@ export class ListTechnologiesUseCase {
       distanceMonths === 0
         ? undefined
         : distanceMonths === 1
-        ? '1 ano'
+        ? '1 mês'
         : `${distanceMonths} meses`;
 
     if (!!formattedMonths && !!formattedYears) {

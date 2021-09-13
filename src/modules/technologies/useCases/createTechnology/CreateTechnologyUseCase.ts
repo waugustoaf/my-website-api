@@ -64,12 +64,17 @@ export class CreateTechnologyUseCase {
     }
   }
 
-  async execute({ name, time_in_months, time_in_years, type }: IRequest): Promise<IResponse> {
+  async execute({
+    name,
+    time_in_months,
+    time_in_years,
+    type,
+  }: IRequest): Promise<IResponse> {
     const technologyAlreadyExits = await this.technologiesRepository.findByName(
       name,
     );
 
-    if (technologyAlreadyExits) {
+    if (technologyAlreadyExits && technologyAlreadyExits.type === type) {
       throw new AppError('A technology with this name is already registered.');
     }
 
@@ -98,6 +103,6 @@ export class CreateTechnologyUseCase {
       type,
     });
 
-    return {...technology, formatted_start_date};
+    return { ...technology, formatted_start_date };
   }
 }

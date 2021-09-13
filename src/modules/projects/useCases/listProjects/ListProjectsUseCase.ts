@@ -9,8 +9,20 @@ export class ListProjectsUseCase {
     private projectsRepository: IProjectsRepository,
   ) {}
 
+  private compare(a: Project, b: Project) {
+    if (a.created_at < b.created_at) {
+      return -1;
+    }
+    if (a.created_at > b.created_at) {
+      return 1;
+    }
+    return 0;
+  }
+
   async execute(): Promise<Project[]> {
-    const projects = this.projectsRepository.list();
+    const response = await this.projectsRepository.list();
+
+    const projects = response.sort(this.compare);
 
     return projects;
   }
