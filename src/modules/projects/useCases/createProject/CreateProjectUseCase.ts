@@ -18,7 +18,10 @@ export class CreateProjectUseCase {
       await this.projectsRepository.findAlreadyRegistered(data);
 
     if (projectAlreadyExists) {
-      if (external_link === projectAlreadyExists.external_link) {
+      if (
+        external_link === projectAlreadyExists.external_link &&
+        external_link !== 'https://www.waugustoaf.com.br/portfolio'
+      ) {
         throw new AppError('External link already registered.');
       }
       if (github_link === projectAlreadyExists.github_link) {
