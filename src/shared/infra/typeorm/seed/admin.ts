@@ -7,7 +7,9 @@ const create = async () => {
   const bcryptHashProvider = new BCryptHashProvider();
 
   const id = uuid();
-  const password = await bcryptHashProvider.generateHash('waugustoaf-admin');
+  const password = await bcryptHashProvider.generateHash(
+    String(process.env.ADMIN_PASSWORD),
+  );
 
   await connection.query(
     `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at) 
