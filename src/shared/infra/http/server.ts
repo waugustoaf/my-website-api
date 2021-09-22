@@ -7,6 +7,8 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import 'reflect-metadata';
+import swaggerUI from 'swagger-ui-express';
+import swaggerFile from '../../../swagger.json';
 import { AppError } from '../../errors/AppError';
 import { routes } from './routes';
 
@@ -20,6 +22,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use(routes);
 
@@ -43,5 +46,5 @@ app.use(
 );
 
 app.listen(3333, () => {
-  console.log('\x1b[32m', 'Server has started! 🚀');
+  console.log('\x1b[32m', 'Server has started! 🚀\x1b[37m');
 });

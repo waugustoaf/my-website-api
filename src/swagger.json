@@ -1,0 +1,308 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "waugustoaf API",
+    "description": "This is a Personal Site API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "waugustoaf@gmail.com"
+    }
+  },
+  "paths": {
+    "/projects": {
+      "post": {
+        "tags": ["Project"],
+        "summary": "Create a project",
+         "description": "Create a new project",
+         "security": [
+          { "bearerAuth": []}
+         ],
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema": {
+                 "type": "object",
+                 "properties": {
+                   "name": {
+                     "type": "string"
+                   },
+                   "external_link": {
+                     "type": "string"
+                   },
+                   "github_link": {
+                     "type": "string"
+                   },
+                   "image_link": {
+                     "type": "string"
+                   },
+                   "description": {
+                     "type": "string"
+                   }
+                 },
+                 "example": {
+                   "name": "project name sample",
+                   "external_link": "https://myprojectsite.com",
+                   "github_link": "https://github.com/user/project",
+                   "image_link": "https://i.imgut.com/isd4Fs",
+                   "description": "Project description sample"
+                 }
+               }
+             }
+           }
+         },
+         "responses": {
+           "201": {
+             "description": "Created"
+           },
+           "400": {
+             "description": "Project already exists"
+           }
+         }
+      },
+      "get": {
+        "tags": ["Project"],
+        "summary": "List all projects",
+        "description": "List all projects",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "external_link": {
+                        "type": "string"
+                      },
+                      "github_link": {
+                        "type": "string"
+                      },
+                      "image_link": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/technologies": {
+      "post": {
+        "tags": ["Technology"],
+        "summary": "Upload a new technology",
+        "description": "Upload a new technology",
+        "security": [
+          { "bearerAuth": []}
+         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "time_in_months":{
+                    "type": "number"
+                  },
+                  "time_in_years": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                   "name": "ReactJS",
+                   "type": "web",
+                   "time_in_months": 10,
+                   "time_in_years": 1
+                 }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Project already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Technology"],
+        "summary": "List all technologies",
+        "description": "List all technologies",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "external_link": {
+                        "type": "string"
+                      },
+                      "start_date": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "formatted_start_date": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create a specification",
+        "description": "Create a new specification",
+        "security": [
+          { "bearerAuth": []}
+         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists!"
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { 
+            "description": "Success"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
+    "/refresh_token": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Refresh user token",
+        "description": "Refresh user token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { 
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid Token!"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "https",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+  
+}
