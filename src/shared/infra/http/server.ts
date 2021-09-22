@@ -10,6 +10,7 @@ import 'reflect-metadata';
 import swaggerUI from 'swagger-ui-express';
 import swaggerFile from '../../../swagger.json';
 import { AppError } from '../../errors/AppError';
+import { rateLimiter } from './middlewares/rateLimiter';
 import { routes } from './routes';
 
 createConnection();
@@ -24,6 +25,7 @@ app.use(
 app.use(express.json());
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
+app.use(rateLimiter);
 app.use(routes);
 
 app.use(errors());
